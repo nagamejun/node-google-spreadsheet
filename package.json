@@ -40,6 +40,7 @@
     "src/lib"
   ],
   "scripts": {
+    "postinstall": "npm run build",
     "build": "NODE_ENV=production unbuild",
     "build2": "tsc",
     "build:dev": "unbuild",
