@@ -366,7 +366,7 @@ export class GoogleSpreadsheetWorksheet {
 
     if (headerRowIndex) this._headerRowIndex = headerRowIndex;
 
-    const response = await this._spreadsheet.sheetsApi.request({
+    const response = await this._spreadsheet.sheetsApi.request<any>({
       method: 'put',
       url: `/values/${this.encodedA1SheetName}!${this._headerRowIndex}:${this._headerRowIndex}`,
       params: {
@@ -427,7 +427,7 @@ export class GoogleSpreadsheetWorksheet {
       rowsAsArrays.push(rowAsArray);
     });
 
-    const response = await this._spreadsheet.sheetsApi.request({
+    const response = await this._spreadsheet.sheetsApi.request<any>({
       method: 'post',
       url: `/values/${this.encodedA1SheetName}!A${this._headerRowIndex}:append`,
       params: {

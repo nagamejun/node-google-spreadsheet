@@ -1,8 +1,8 @@
 import Axios, {
   XiorError as AxiosError,
   XiorInstance as AxiosInstance,
-  XiorResponse as AxiosResponse,
   XiorInterceptorRequestConfig as InternalAxiosRequestConfig,
+  XiorResponseInterceptorConfig,
 } from 'xior';
 
 import { Stream } from 'stream';
@@ -160,7 +160,7 @@ export class GoogleSpreadsheet {
   }
 
   /** @internal */
-  async _handleAxiosResponse(response: AxiosResponse) { return response; }
+  async _handleAxiosResponse(response: XiorResponseInterceptorConfig) { return response; }
   /** @internal */
   async _handleAxiosErrors(error: AxiosError) {
     // console.log(error);
@@ -514,7 +514,7 @@ export class GoogleSpreadsheet {
    * list all permissions entries for doc
    */
   async listPermissions(): Promise<PermissionsList> {
-    const listReq = await this.driveApi.request({
+    const listReq = await this.driveApi.request<any>({
       method: 'GET',
       url: '/permissions',
       params: {
@@ -533,12 +533,12 @@ export class GoogleSpreadsheet {
         // doc is already not public... could throw an error or just do nothing
         return;
       }
-      await this.driveApi.request({
+      await this.driveApi.request<any>({
         method: 'DELETE',
         url: `/permissions/${existingPublicPermission.id}`,
       });
     } else {
-      const _shareReq = await this.driveApi.request({
+      const _shareReq = await this.driveApi.request<any>({
         method: 'POST',
         url: '/permissions',
         params: {
@@ -580,7 +580,7 @@ export class GoogleSpreadsheet {
     }
 
 
-    const shareReq = await this.driveApi.request({
+    const shareReq = await this.driveApi.request<any>({
       method: 'POST',
       url: '/permissions',
       params: {
@@ -617,7 +617,7 @@ export class GoogleSpreadsheet {
 
     const authConfig = await getRequestAuthConfig(auth);
 
-    const response = await Axios.request({
+    const response = await Axios.request<any>({
       method: 'POST',
       url: SHEETS_API_BASE_URL,
       paramsSerializer: axiosParamsSerializer,
