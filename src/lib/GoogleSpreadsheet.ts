@@ -122,10 +122,6 @@ export class GoogleSpreadsheet {
     this.sheetsApi = Axios.create({
       baseURL: `${SHEETS_API_BASE_URL}/${spreadsheetId}`,
       paramsSerializer: axiosParamsSerializer,
-      // removing limits in axios for large requests
-      // https://stackoverflow.com/questions/56868023/error-request-body-larger-than-maxbodylength-limit-when-sending-base64-post-req
-      maxContentLength: Infinity,
-      maxBodyLength: Infinity,
     });
     this.driveApi = Axios.create({
       baseURL: `${DRIVE_API_BASE_URL}/${spreadsheetId}`,
