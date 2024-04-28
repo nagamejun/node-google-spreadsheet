@@ -148,10 +148,10 @@ export class GoogleSpreadsheet {
   /** @internal */
   async _setAxiosRequestAuth(config: InternalAxiosRequestConfig) {
     const authConfig = await getRequestAuthConfig(this.auth);
-    _.each(authConfig['headers'], (val, key) => {
+    _.each(authConfig.headers, (val, key) => {
       config.headers.set(key, val);
     });
-    config.params = { ...config.params, ...authConfig['params'] };
+    config.params = { ...config.params, ...authConfig.params };
     return config;
   }
 
